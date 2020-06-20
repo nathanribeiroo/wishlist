@@ -1,7 +1,7 @@
 import express from 'express';
 
 import customers from './controllers/customersController';
-import bookmarkProducts from './controllers/bookmarkProductsController';
+import products from './controllers/productsController';
 
 const routes = express.Router();
 
@@ -12,11 +12,11 @@ routes.post('/customers', customers.create);
 routes.put('/customers/:id', customers.update);
 routes.delete('/customers/:id', customers.delete);
 
-// [CRUD] routes for bookmark-products
-routes.get('/customers/:id/bookmark-products', bookmarkProducts.index)
-routes.get('/customers/:id/bookmark-products/:idProduct', bookmarkProducts.indexById)
-routes.post('/customers/:id/bookmark-products', bookmarkProducts.create)
-routes.put('/customers/:id/bookmark-products', bookmarkProducts.update)
-routes.delete('/customers/:id/bookmark-products', bookmarkProducts.delete)
+// [CRUD] routes for products
+routes.get('/customers/:id/products', products.index)
+routes.get('/customers/:id/products/:idProduct', products.indexById)
+routes.post('/customers/:id/products', products.create)
+routes.put('/customers/:id/products', products.update)
+routes.delete('/customers/:id/products', products.delete)
 
 export default routes;

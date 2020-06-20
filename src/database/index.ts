@@ -3,7 +3,7 @@ import mysql, { Connection, ConnectionOptions, QueryError } from 'mysql2';
 
 import createDatabase from './createDatabase';
 import createTableCustomers from './createTableCustomers';
-import createBookmarkProducts from './createBookmarkProducts';
+import createBookmarkProducts from './createProducts';
 
 export interface connectionInterface {
     connection: Connection,
