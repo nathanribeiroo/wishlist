@@ -31,7 +31,7 @@ export default {
                 return response.status(404).json({ error: { message: 'customer not found.' } });
             }
 
-            return response.json(result)
+            return response.json(result[0])
 
         } catch (error) {
             return response.status(error.status || 500).json({ error });

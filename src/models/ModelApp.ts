@@ -91,9 +91,6 @@ export class ModelApp {
                         return reject(err);
                     }
 
-                    console.log(result);
-
-
                     this.conn.query(`SELECT * FROM ${this.table} WHERE id = '${id}'`, (err, result) => {
 
                         if (err) {

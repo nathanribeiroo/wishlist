@@ -13,7 +13,7 @@ const check: Validators = {
         if (typeof value === 'undefined' || value.trim().length === 0) {
             throw {
                 status: 400,
-                message: `invalid name`
+                message: `name is required`
             }
         }
 
@@ -22,6 +22,13 @@ const check: Validators = {
 
     isEmail(value: string): void {
 
+        if (typeof value === 'undefined' || value.trim().length === 0) {
+            throw {
+                status: 400,
+                message: `email is required`
+            }
+        }
+        
         if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
             return;
         }
