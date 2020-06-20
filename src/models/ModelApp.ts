@@ -1,5 +1,4 @@
 import mysql from 'mysql2';
-import { isUuid } from 'uuidv4'
 import options from '../configs/database';
 
 export class ModelApp {
