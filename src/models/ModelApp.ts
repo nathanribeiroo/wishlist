@@ -1,126 +1,40 @@
 import mysql from 'mysql2';
 import options from '../configs/database';
+import { Pool } from 'mysql2';
 
 export class ModelApp {
 
-    protected conn = mysql.createConnection(options);
+    protected conn: Pool;
 
     constructor(public table: string) {
-
+        this.conn = mysql.createPool(options);
     }
 
     findAll() {
         return new Promise((resolve, reject) => {
-            this.conn.connect(err => {
+            this.conn.query(`SELECT * FROM ${this.table}`, (err, result) => {
                 if (err) {
                     return reject(err);
                 }
-
-                this.conn.query(`SELECT * FROM ${this.table}`, (err, result) => {
-                    if (err) {
-                        return reject(err);
-                    }
-
-                    this.conn.end();
-                    return resolve(result);
-                });
+                return resolve(result);
             });
         });
     }
 
-    findById(id: string) {
-        return new Promise((resolve, reject) => {
-            this.conn.connect(err => {
-                if (err) {
-                    return reject(err);
-                }
-
-                this.conn.query(`SELECT * FROM ${this.table} WHERE id = '${id}'`, (err, result) => {
-                    if (err) {
-                        return reject(err);
-                    }
-
-                    this.conn.end();
-                    return resolve(result);
-                });
-            });
-        });
+    formatReturn(result: any) {
+        return result[0];
     }
 
-    add(fields: Array<any>) {
-        return new Promise((resolve, reject) => {
-            this.conn.connect(err => {
-                if (err) {
-                    return reject(err);
-                }
+    hasError(result: any) {
 
-                const sql: string = `INSERT INTO ${this.table} (id, name, email) VALUES (?,?,?)`;
+        if (result[0].length === 0) {
+            return false;
+        }
 
-                this.conn.query(sql, fields, (err, result) => {
+        if (typeof result[0][0].status !== 'undefined') {
+            return true;
+        }
 
-                    if (err) {
-                        return reject(err);
-                    }
-
-                    this.conn.query(`SELECT * FROM ${this.table} WHERE id = '${fields[0]}'`, (err, result) => {
-
-                        if (err) {
-                            return reject(err);
-                        }
-
-                        this.conn.end();
-                        return resolve(result);
-                    })
-                });
-            });
-        });
-    }
-
-    updateById(id: string, sql: string) {
-        return new Promise((resolve, reject) => {
-            this.conn.connect(err => {
-                if (err) {
-                    return reject(err);
-                }
-
-
-                this.conn.query(sql, (err, result) => {
-
-                    if (err) {
-                        return reject(err);
-                    }
-
-                    this.conn.query(`SELECT * FROM ${this.table} WHERE id = '${id}'`, (err, result) => {
-
-                        if (err) {
-                            return reject(err);
-                        }
-
-                        this.conn.end();
-                        return resolve(result);
-                    })
-                });
-            });
-        });
-
-    }
-
-    delete(id: string) {
-        return new Promise((resolve, reject) => {
-            this.conn.connect(err => {
-                if (err) {
-                    return reject(err);
-                }
-
-                this.conn.query(`DELETE FROM ${this.table} WHERE id = '${id}'`, (err, result) => {
-                    if (err) {
-                        return reject(err);
-                    }
-
-                    this.conn.end();
-                    return resolve(result);
-                });
-            });
-        });
+        return false;
     }
 }

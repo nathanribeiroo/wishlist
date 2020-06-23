@@ -1,13 +1,14 @@
-import { connectionInterface } from './index';
+import { connectionInterface } from '../index';
 
-export default ({ connection, options }: connectionInterface) => {
+export const createTableProducts = ({ connection, options }: connectionInterface) => {
     return new Promise<connectionInterface>((resolve, reject) => {
 
         const sqlCreateTable = `
             use ${options.database};
 
             CREATE TABLE products (
-                id CHAR(36) NOT NULL,
+                id INT(5) NOT NULL AUTO_INCREMENT,
+                product_id CHAR(36) NOT NULL,
                 customer_id CHAR(36) NOT NULL,
                 title VARCHAR(80) NOT NULL,
                 price DECIMAL(6,2) NOT NULL,
@@ -30,16 +31,8 @@ export default ({ connection, options }: connectionInterface) => {
                 return reject(err);
             }
 
-            console.log(`[4/4] 📖 ${err && err.errno === 1050 ? err.message : 'created products table'}...`);
-
-            connection.end(err => {
-
-                if (err)
-                    return reject(err);
-
-                console.log(`\n✨  database and tables successfully created...\n`);
-                return resolve();
-            });
+            console.log(`[4/10] 📖 ${err && err.errno === 1050 ? err.message : 'created products table'}...`);
+            return resolve({ connection, options });
         });
     });
 }

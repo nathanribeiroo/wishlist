@@ -1,9 +1,7 @@
 import options from '../configs/database'
 import mysql, { Connection, ConnectionOptions, QueryError } from 'mysql2';
 
-import createDatabase from './createDatabase';
-import createTableCustomers from './createTableCustomers';
-import createBookmarkProducts from './createProducts';
+import * as run from './commands/index'
 
 export interface connectionInterface {
     connection: Connection,
@@ -23,11 +21,15 @@ const errorQuery = (err: QueryError) => {
     process.exit(0);
 }
 
-console.log(`\n\n[1/4] 🔨 start creating the database...`);
+console.log(`\n\n[1/10] 🔨 start creating the database...`);
 Promise.resolve({ connection, options })
-    .then(createDatabase)
-    .then(createTableCustomers)
-    .then(createBookmarkProducts)
+    .then(run.createDatabase)
+    .then(run.createTableCustomers)
+    .then(run.createTableProducts)
+    .then(run.createTableUsers)
+    .then(run.createPrAddCustomers)
+    .then(run.createPrAddProducts)
+    .then(run.createPrIndexProducts)
+    .then(run.createPrIndexProductsId)
+    .then(run.createPrDeleteProduct)
     .catch(errorQuery)
-
-

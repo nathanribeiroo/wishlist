@@ -1,6 +1,6 @@
-import { connectionInterface } from './index'
+import { connectionInterface } from '../index'
 
-export default ({ connection, options }: connectionInterface) => {
+export const createDatabase = ({ connection, options }: connectionInterface) => {
     return new Promise<connectionInterface>((resolve, reject) => {
         connection.connect((err => {
 
@@ -11,7 +11,7 @@ export default ({ connection, options }: connectionInterface) => {
                 if (err) {
 
                     if (err.errno === 1007) {
-                        console.log(`[2/4] 💾 ${err.message}...`);
+                        console.log(`[2/10] 💾 ${err.message}...`);
                         return resolve({ connection, options });
                     }
                     
@@ -19,7 +19,7 @@ export default ({ connection, options }: connectionInterface) => {
                 }
 
                    
-                console.log(`[2/4] 💾 ${options.database} database created...`);
+                console.log(`[2/10] 💾 ${options.database} database created...`);
                 return resolve({ connection, options });
             }); 
         }))

@@ -1,6 +1,6 @@
-import { connectionInterface } from './index';
+import { connectionInterface } from '../index';
 
-export default ({ connection, options }: connectionInterface) => {
+export const createTableCustomers = ({ connection, options }: connectionInterface) => {
     return new Promise<connectionInterface>((resolve, reject) => {
 
         const sqlCreateTable = `
@@ -22,17 +22,15 @@ export default ({ connection, options }: connectionInterface) => {
             if (err){
 
                 if (err.errno === 1050) {
-                    console.log(`[3/4] 👦 ${err.message}...`);
+                    console.log(`[3/10] 👦 ${err.message}...`);
                     return resolve({ connection, options });
                 }
                 
                 return reject(err);
             }
 
-            console.log(`[3/4] 👦 created customers table...`);
+            console.log(`[3/10] 👦 created customers table...`);
             return resolve({ connection, options });
         });
     });
 }
-
-// id INT NOT NULL AUTO_INCREMENT,

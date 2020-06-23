@@ -1,4 +1,5 @@
-import express, { NextFunction, Response, Request } from 'express';
+import './env'
+import express from 'express';
 
 import cors from 'cors';
 import routes from '../routes';
