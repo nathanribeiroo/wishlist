@@ -4,7 +4,8 @@ import * as bcrypt from 'bcrypt'
 export const createTableUsers = ({ connection, options }: connectionInterface) => {
     return new Promise<connectionInterface>(async (resolve, reject) => {
 
-        const password = await bcrypt.hash('*1234', 12);
+        const password1 = await bcrypt.hash('1234', 12);
+        const password2 = await bcrypt.hash('12345', 12);
 
         const sqlCreateTable = `
             use ${options.database};
@@ -18,7 +19,8 @@ export const createTableUsers = ({ connection, options }: connectionInterface) =
               
             
 
-            INSERT INTO users (email, password) VALUES ('example@example.com', '${password}');
+            INSERT INTO users (email, password) VALUES ('example@example.com', '${password1}');
+            INSERT INTO users (email, password) VALUES ('test@luizalabs.com', '${password2}');
 
             
             `;

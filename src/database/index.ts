@@ -16,7 +16,6 @@ const connection = mysql.createConnection({
 });
 
 const errorQuery = (err: QueryError) => {
-    err
     console.log(`❌ Error: ${err}`);
     process.exit(0);
 }

@@ -5,103 +5,97 @@ import Customer from '../models/Customer';
 
 export default {
 
-    async index(request: Request, response: Response) {
-        try {
+	async index(request: Request, response: Response) {
+		try {
+			const { id } = request.params;
 
-            const { id } = request.params;
+			check.isUuid('id customer', id);
 
-            check.isUuid('id customer', id);
+			const customers = new Customer();
 
-            const customers = new Customer();
-            
-            if (typeof id === 'undefined') {
-                const result = await customers.findAll();
-                return response.json(result);
-            }
-            
-            let result: any = await customers.findById(id);
+			if (typeof id === 'undefined') {
+				const result = await customers.findAll();
+				return response.json(result);
+			}
 
-            if (result.length === 0) {
-                return response.status(404).json({ error: { message: 'customer not found.' } });
-            }
+			const result: any = await customers.findById(id);
 
-            return response.json(result[0]);
-        } catch (error) {
-            return response.status(error.status || 500).json({ error });
-        }
-    },
+			if (result.length === 0) {
+				return response.status(404).json({ error: { message: 'customer not found.' } });
+			}
 
-    async create(request: Request, response: Response) {
-        try {
+			return response.json(result[0]);
+		} catch (error) {
+			return response.status(error.status || 500).json({ error });
+		}
+	},
 
-            const { name, email } = request.body;
+	async create(request: Request, response: Response) {
+		try {
+			const { name, email } = request.body;
 
-            check.isEmpty(name);
-            check.isEmail(email);
+			check.isEmpty(name);
+			check.isEmail(email);
 
-            const customers = new Customer();
-            const result:any = await customers.create({ name, email });
+			const customers = new Customer();
+			const result: any = await customers.create({ name, email });
 
-            return response.json(result);
+			return response.json(result);
+		} catch (error) {
+			return response.status(error.status || 500).json({ error });
+		}
+	},
 
-        } catch (error) {
-            return response.status(error.status || 500).json({ error });
-        }
-    },
+	async update(request: Request, response: Response) {
+		try {
+			const { id } = request.params;
+			const { name, email } = request.body;
 
-    async update(request: Request, response: Response) {
-        try {
+			const update: { name?: string, email?: string } = {};
 
-            const { id } = request.params;
-            const { name, email } = request.body;
+			check.isUuid('id customer', id);
 
-            let update: { name?: string, email?: string } = {}
+			if (typeof name !== 'undefined') {
+				check.isEmpty(name);
+				update.name = name;
+			}
 
-            check.isUuid('id customer', id);
+			if (typeof email !== 'undefined') {
+				check.isEmail(email);
+				update.email = email;
+			}
 
-            if (typeof name !== 'undefined') {
-                check.isEmpty(name);
-                update['name'] = name;
-            }
+			const customers = new Customer();
+			const result: any = await customers.update(id, update);
 
-            if (typeof email !== 'undefined') {
-                check.isEmail(email);
-                update['email'] = email;
-            }
+			if (result.length === 0) {
+				return response.status(404).json({ error: { message: 'customer not found.' } });
+			}
 
-            const customers = new Customer();
-            const result: any = await customers.update(id, update);
+			return response.json(result[0]);
+		} catch (error) {
+			return response.status(error.status || 500).json({ error });
+		}
+	},
 
-            if (result.length === 0) {
-                return response.status(404).json({ error: { message: 'customer not found.' } });
-            }
+	async delete(request: Request, response: Response) {
+		try {
+			const { id } = request.params;
 
-            return response.json(result[0]);
-        } catch (error) {
-            return response.status(error.status || 500).json({ error });
-        }
-    },
+			check.isUuid('id customer', id);
 
-    async delete(request: Request, response: Response) {
-        try {
+			const customers = new Customer();
 
-            const { id } = request.params;
+			const result: any = await customers.delete(id);
 
-            check.isUuid('id customer', id);
+			if (result.affectedRows > 0) {
+				return response.status(204).send();
+			}
 
-            const customers = new Customer();
+			return response.status(404).json({ error: { message: 'customer not found.' } });
+		} catch (error) {
+			return response.status(error.status || 500).json({ error });
+		}
+	},
 
-            let result: any = await customers.delete(id);
-
-            if (result.affectedRows > 0) {
-                return response.status(204).send();
-            }
-
-            return response.status(404).json({ error: { message: 'customer not found.' } });
-
-        } catch (error) {
-            return response.status(error.status || 500).json({ error });
-        }
-    },
-
-}
+};

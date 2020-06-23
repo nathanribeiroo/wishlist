@@ -23,7 +23,7 @@ const auth = async (request: Request, response: Response, next: NextFunction) =>
     try {
 
         const [, token] = authorization.split(' ');
-        await jwt.verify(token, process.env.APP_SECRET || "wishlist");
+        await jwt.verify(token, process.env.APP_SECRET);
 
         return next();
 
