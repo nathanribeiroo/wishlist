@@ -65,6 +65,10 @@ export default {
 				update.email = email;
 			}
 
+			if (!name && !email) {
+				return response.status(400).json({ error: { message: 'name or email is required.' } });
+			}
+
 			const customers = new Customer();
 			const result: any = await customers.update(id, update);
 
