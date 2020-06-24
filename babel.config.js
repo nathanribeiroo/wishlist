@@ -13,7 +13,9 @@ module.exports = {
     ],
 
     ignore: [
-        '**/*.spec.ts'
+        '**/__tests__/**/*',
+        '**/*.spec.ts',
+        'src/database/**/*'
     ]
 
 }
