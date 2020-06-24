@@ -15,10 +15,11 @@ export default class Customer extends ModelApp {
     findById(id: string) {
         return new Promise((resolve, reject) => {
             this.conn.query(`SELECT * FROM ${this.table} WHERE id = '${id}'`, (err, result) => {
-                if (err) {
-                    return reject(err);
-                }
+                this.conn.end();
 
+                if (err) { return reject(err); }
+
+                
                 return resolve(result);
             });
         });
@@ -27,6 +28,8 @@ export default class Customer extends ModelApp {
     create({ name, email }: dataCreate) {
         return new Promise((resolve, reject) => {
             this.conn.query(`CALL pr_add_customer('${name}', '${email}')`, (err, result) => {
+                this.conn.end();
+
                 if (err) {
                     return reject(err);
                 }
@@ -35,6 +38,7 @@ export default class Customer extends ModelApp {
                     return reject(this.formatReturn(result)[0]);
                 }
 
+                
                 resolve(this.formatReturn(result)[0]);
             });
         });
@@ -48,16 +52,18 @@ export default class Customer extends ModelApp {
 
             this.conn.query(sql, (err, result) => {
                 if (err) {
+                    this.conn.end();
                     return reject(err);
                 }
 
                 this.conn.query(`SELECT * FROM ${this.table} WHERE id = '${id}'`, (err, result) => {
+                    this.conn.end();
 
                     if (err) {
                         return reject(err);
                     }
 
-                    this.conn.end();
+                    
                     return resolve(result);
                 })
             });
@@ -67,6 +73,7 @@ export default class Customer extends ModelApp {
     delete(id: string) {
         return new Promise((resolve, reject) => {
             this.conn.query(`DELETE FROM ${this.table} WHERE id = '${id}'`, (err, result) => {
+                this.conn.end();
                 if (err) {
                     return reject(err);
                 }

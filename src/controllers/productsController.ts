@@ -22,7 +22,11 @@ export default {
 				product_id: productId
 			});
 
-			return response.json(products);
+			if (products)
+				return response.json(products);
+
+			return response.status(404).json({ error: { message: 'product not found'}});
+
 		} catch (error) {
 			return response.status(error.status || 500).json({ error });
 		}

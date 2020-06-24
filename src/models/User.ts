@@ -6,7 +6,6 @@ export default class Customer extends ModelApp {
         super('users');
     }
 
-
     auth(email: string) {
         return new Promise((resolve, reject) => {
             const sql = `SELECT * FROM users WHERE email = '${email}'`;
@@ -16,6 +15,7 @@ export default class Customer extends ModelApp {
                     return reject(err);
                 }
 
+                this.conn.end();
                 return resolve(result);
             });
 

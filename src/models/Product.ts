@@ -41,9 +41,9 @@ export default class Products extends ModelApp {
             : `CALL pr_index_product_id('${customer_id}', '${product_id}')` ;
 
             this.conn.query(sql, (err, result) => {
-                if (err) {
-                    return reject(err);
-                }
+                this.conn.end();
+
+                if (err) return reject(err);
 
                 if (this.hasError(result)) {
                     return reject(this.formatReturn(result)[0]);
@@ -67,7 +67,11 @@ export default class Products extends ModelApp {
                     return product;
                 }); 
 
-                return resolve(products);
+                if (typeof product_id === 'undefined') {
+                    return resolve(products);
+                }
+                
+                return resolve(products[0]);
             })
         })
     }
@@ -78,9 +82,10 @@ export default class Products extends ModelApp {
             const sql = `CALL pr_add_product('${product_id}', '${customer_id}', '${title}', ${price}, ${review})`;
 
             this.conn.query(sql, (err, result) => {
-                if (err) {
-                    return reject(err);
-                }
+                this.conn.end();
+
+                if (err) return reject(err);
+                
 
                 if (this.hasError(result)) {
                     return reject(this.formatReturn(result)[0]);
@@ -97,9 +102,15 @@ export default class Products extends ModelApp {
             const sql = `CALL pr_delete_product('${customer_id}', '${product_id}')`;
 
             this.conn.query(sql, (err, result) => {
+                this.conn.end();
+
                 if (err) {
                     return reject(err);
                 }
+
+                if (this.hasError(result)) {
+                    return reject(this.formatReturn(result)[0]);
+                } 
 
                 return resolve(result);
             })

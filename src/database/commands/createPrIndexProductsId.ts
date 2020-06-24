@@ -22,7 +22,7 @@ export const createPrIndexProductsId = ({ connection, options }: connectionInter
                 price
             FROM products WHERE customer_id = _customer_id AND product_id = _product_id;
         ELSE
-            SELECT 'customer is not found.' AS message, 404 AS status; 
+            SELECT 'customer not found.' AS message, 404 AS status; 
         END IF;
 
         END

@@ -24,8 +24,8 @@ export default {
 			if (await bcrypt.compare(password, result[0].password)) {
 				const token = jwt.sign({ id: result[0].id }, process.env.APP_SECRET, {
 					expiresIn: parseInt(process.env.EXPIRES_IN || '1800') // expires in 30 with default
-				})
-
+				});
+				
 				return response.json({ email, token });
 			}
 

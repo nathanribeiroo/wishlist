@@ -1,37 +1,13 @@
 import express, { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
 
 import customers from './controllers/customersController';
 import products from './controllers/productsController';
 import users from './controllers/usersController';
 
+import auth from './middleware/auth';
+import notFound from './middleware/notFound';
+
 const routes = express.Router();
-
-const notFound = (request: Request, response: Response) => {
-    return response.status(404).json({
-        message: `address not found.`
-    });
-}
-
-const auth = async (request: Request, response: Response, next: NextFunction) => {
-    const authorization = request.headers.authorization;
-
-    if (!authorization) {
-        return response.status(401).json({ error: { message: 'token is required!' } });
-    }
-
-    try {
-
-        const [, token] = authorization.split(' ');
-        await jwt.verify(token, process.env.APP_SECRET);
-
-        return next();
-
-    } catch (error) {
-        return response.status(401).json({ error: { message: 'token invalid!' } });
-    }
-
-}
 
 // route for authenticate
 routes.post('/login', users.login);

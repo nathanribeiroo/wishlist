@@ -7,3 +7,4 @@ export * from './createPrIndexProducts';
 export * from './createPrIndexProductsId';
 export * from './createPrDeleteProduct';
 export * from './createTableUsers';
+export * from './dropDatabase';
