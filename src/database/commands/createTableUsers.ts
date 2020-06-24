@@ -1,11 +1,11 @@
 import { connectionInterface } from '../index';
-import * as bcrypt from 'bcrypt'
+import md5 from 'md5'
 
 export const createTableUsers = ({ connection, options }: connectionInterface) => {
     return new Promise<connectionInterface>(async (resolve, reject) => {
 
-        const password1 = await bcrypt.hash('1234', 12);
-        const password2 = await bcrypt.hash('12345', 12);
+        const password1 = await md5('1234');
+        const password2 = await md5('12345');
 
         const sqlCreateTable = `
             use ${options.database};

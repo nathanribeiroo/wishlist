@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import * as bcrypt from 'bcrypt';
+import md5 from 'md5';
 import check from './validator';
 
 import User from '../models/User';
@@ -34,7 +34,7 @@ export default {
 				return response.status(404).json({ error: { message: 'user not found.' } });
 			}
 
-			if (await bcrypt.compare(password, result[0].password)) { // compares database password with unsigned password
+			if (md5(password) === result[0].password) { // compares database password with unsigned password
 				const token = jwt.sign({ id: result[0].id }, process.env.APP_SECRET, { // creates a new token
 					expiresIn: parseInt(process.env.EXPIRES_IN || '1800') // expires in 30 with default
 				});
