@@ -21,7 +21,7 @@ export class ModelApp {
      * Select all table
      * 
      */
-    protected findAll() {
+    findAll() {
         return new Promise((resolve, reject) => {
             this.conn.query(`SELECT * FROM ${this.table}`, (err, result) => { // ececute select
                 this.conn.end(); // close connection
@@ -39,7 +39,7 @@ export class ModelApp {
      * 
      * @param result RowDataPacket[] | RowDataPacket[][] | OkPacket | OkPacket[]
      */
-    protected formatReturn(result: any) {
+    formatReturn(result: any) {
         return result[0];
     }
 
@@ -49,7 +49,7 @@ export class ModelApp {
      * 
      * @param result RowDataPacket[] | RowDataPacket[][] | OkPacket | OkPacket[]
      */
-    protected hasError(result: any) {
+    hasError(result: any) {
 
         if (Array.isArray(result)) {
 

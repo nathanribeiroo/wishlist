@@ -1,0 +1,10 @@
+node_modules
+src
+.env.test
+.gitignore
+babel.config.js
+docker-compose.yml
+Dockerfiler
+jest.config.js
+LICENSE
+tsconfig.json

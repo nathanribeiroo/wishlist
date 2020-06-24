@@ -1,0 +1,25 @@
+version: "3"
+
+services: 
+    db:
+        image: mysql:8.0
+        container_name: mysql_wishlist
+        ports: 
+            - 3306:3306
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+    wishlist:
+        build:
+            dockerfile: ./Dockerfile
+            context: .
+        image: nathanribeiroo/wishlist
+        container_name: app_wishlist
+        command: "yarn start"
+        ports: 
+            - 3000:3000
+        volumes:
+            - .:/var/www
+        depends_on: 
+            - "db"
+        environment:
+            WAIT_HOSTS: db:3306
