@@ -1,5 +1,3 @@
-import fs from 'fs';
-import {join} from 'path';
 import { connectionInterface } from '../index';
 
 export const createPrAddProducts = ({ connection, options }: connectionInterface) => {

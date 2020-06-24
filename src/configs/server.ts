@@ -1,4 +1,6 @@
-import './env';
+// load server express, environment, routes, cors and parser json.
+
+import './env'; 
 import express from 'express';
 
 import cors from 'cors';

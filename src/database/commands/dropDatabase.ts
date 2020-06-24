@@ -1,5 +1,4 @@
 import { connectionInterface } from '../index';
-import * as bcrypt from 'bcrypt'
 
 export const dropDatabase = ({ connection, options }: connectionInterface) => {
     return new Promise<connectionInterface>(async (resolve, reject) => {

@@ -1,7 +1,17 @@
-import '../configs/env';
-import mysql, { Connection, ConnectionOptions, QueryError } from 'mysql2';
+/**
+ * Script file to just create
+ * or delete the databases.
+ * 
+ * its function is to facilitate the
+ * development and testing.
+ * 
+ * 
+ */
 
-import * as run from './commands/index'
+import '../configs/env';
+import mysql, { Connection, QueryError } from 'mysql2';
+
+import * as run from './commands/index';
 
 export interface connectionInterface {
     connection: Connection,
@@ -10,6 +20,7 @@ export interface connectionInterface {
     }
 }
 
+// create a new connection with database
 const connection = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -17,19 +28,25 @@ const connection = mysql.createConnection({
     multipleStatements: true
 });
 
+/**
+ * Function if something goes
+ * wrong in creating the database. 
+ *  
+ * @param err QueryError
+ */
 const errorQuery = (err: QueryError) => {
     console.log(`❌ Error: ${err} \n\n try again, please!`);
     process.exit(0);
 }
 
-if (process.env.DB_DROP || false) {
+if (process.env.DB_DROP || false) {  // check if it is to delete or create the bank
     console.log(`\n\n🔨 start drop database...`);
-    Promise.resolve({ connection, options: { database: process.env.DB_NAME } })
-        .then(run.dropDatabase)
+    Promise.resolve({ connection, options: { database: process.env.DB_NAME } }) // starts process and check the creation environment (prod or test) 
+        .then(run.dropDatabase) 
         .catch(errorQuery)
 } else {
     console.log(`\n\n[1/10] 🔨 start creating the database...`);
-    Promise.resolve({ connection, options: { database: process.env.DB_NAME } })
+    Promise.resolve({ connection, options: { database: process.env.DB_NAME } }) // starts process and check the creation environment (prod or test) 
         .then(run.createDatabase)
         .then(run.createTableCustomers)
         .then(run.createTableProducts)
