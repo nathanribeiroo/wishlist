@@ -35,7 +35,7 @@ export const createPrAddCustomers = ({ connection, options }: connectionInterfac
                 return reject(err);
             }
 
-            console.log(`[6/10] 🚀 created procedure add_customer...`);
+            // console.log(`[6/10] 🚀 created procedure add_customer...`);
             return resolve({ connection, options });
         });
     });

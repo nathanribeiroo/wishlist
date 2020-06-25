@@ -14,7 +14,7 @@ export class ModelApp {
     protected conn: Connection; // connection
 
     constructor(public table: string) {
-        this.conn = mysql.createConnection(options); // create connection
+        this.conn = mysql.createConnection(options); // create connection       
     }
 
     /**

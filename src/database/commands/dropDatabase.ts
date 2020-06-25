@@ -17,7 +17,7 @@ export const dropDatabase = ({ connection, options }: connectionInterface) => {
                 return reject(err);
             }
 
-            console.log(`🗑  drop database ${options.database} success...`);
+            console.log(`🗑  drop database ok...`);
             return resolve();
         });
     });

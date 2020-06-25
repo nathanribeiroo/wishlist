@@ -31,7 +31,7 @@ export const createTableProducts = ({ connection, options }: connectionInterface
                 return reject(err);
             }
 
-            console.log(`[4/10] 📖 ${err && err.errno === 1050 ? err.message : 'created products table'}...`);
+            // console.log(`[4/10] 📖 ${err && err.errno === 1050 ? err.message : 'created products table'}...`);
             return resolve({ connection, options });
         });
     });

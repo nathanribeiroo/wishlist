@@ -29,14 +29,14 @@ export const createTableUsers = ({ connection, options }: connectionInterface) =
             if (err){
 
                 if (err.errno === 1050) {
-                    console.log(`[5/10] 🔑 ${err.message}...`);
+                    // console.log(`[5/10] 🔑 ${err.message}...`);
                     return resolve({ connection, options });
                 }
                 
                 return reject(err);
             }
 
-            console.log(`[5/10] 🔑 created users table...`);
+            // console.log(`[5/10] 🔑 created users table...`);
             return resolve({ connection, options });
         });
     });

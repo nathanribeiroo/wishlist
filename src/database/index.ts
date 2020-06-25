@@ -39,14 +39,31 @@ const errorQuery = (err: QueryError) => {
     process.exit(0);
 }
 
-if (process.env.DB_DROP || false) {  // check if it is to delete or create the bank
-    console.log(`\n\n🔨 start drop database...`);
-    Promise.resolve({ connection, options: { database: process.env.DB_NAME } }) // starts process and check the creation environment (prod or test) 
-        .then(run.dropDatabase) 
-        .catch(errorQuery)
-} else {
-    console.log(`\n\n[1/10] 🔨 start creating the database...`);
-    Promise.resolve({ connection, options: { database: process.env.DB_NAME } }) // starts process and check the creation environment (prod or test) 
+/**
+ * Concat NODE_ENV with name database
+ * @param name name database
+ */
+export const joinNameDb = (name?: string) => {
+    return name === 'test' ? `${process.env.DB_NAME}_test`
+        : name === 'development' || name === 'dev' ? `${process.env.DB_NAME}_dev` : `${process.env.DB_NAME}`;
+}
+
+const dropDb = (database?: string) => {
+    return new Promise((resolve, reject) => {
+        Promise.resolve({ connection, options: { database: joinNameDb(database) } }) // starts process and check the creation environment (prod or test) 
+            .then(run.dropDatabase)
+            .then(() => {
+                resolve(database);
+            })
+            .catch(errorQuery)
+    });
+    // console.log(`\n\n🔨 start drop database...`);
+
+}
+const createDb = (database?: string) => {
+
+    // console.log(`\n\n[1/10] 🔨 start creating the database...`);
+    return Promise.resolve({ connection, options: { database: joinNameDb(database) } }) // starts process and check the creation environment (prod or test) 
         .then(run.createDatabase)
         .then(run.createTableCustomers)
         .then(run.createTableProducts)
@@ -56,5 +73,9 @@ if (process.env.DB_DROP || false) {  // check if it is to delete or create the b
         .then(run.createPrIndexProducts)
         .then(run.createPrIndexProductsId)
         .then(run.createPrDeleteProduct)
-        .catch(errorQuery)
+        .catch(errorQuery);
+
 }
+
+export const createDatabase = createDb;
+export const dropDatabase = dropDb;

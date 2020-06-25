@@ -32,7 +32,7 @@ export const createPrIndexProducts = ({ connection, options }: connectionInterfa
                 return reject(err);
             }
 
-            console.log(`[8/10] 🚀 created procedure index_product...`);
+            // console.log(`[8/10] 🚀 created procedure index_product...`);
             return resolve({ connection, options });
         });
     });

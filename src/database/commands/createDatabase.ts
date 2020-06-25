@@ -8,14 +8,14 @@ export const createDatabase = ({ connection, options }: connectionInterface) => 
 			connection.execute(`CREATE DATABASE ${options.database}`, (err, result) => {
 				if (err) {
 					if (err.errno === 1007) {
-						console.log(`[2/10] 💾 ${err.message}...`)
+						// console.log(`[2/10] 💾 ${err.message}...`)
 						return resolve({ connection, options });
 					}
 
 					return reject(err);
 				}
 
-				console.log(`[2/10] 💾 ${options.database} database created...`);
+				// console.log(`[2/10] 💾 ${options.database} database created...`);
 				return resolve({ connection, options });
 			})
 		})

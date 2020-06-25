@@ -36,7 +36,7 @@ export default {
 
 			if (md5(password) === result[0].password) { // compares database password with unsigned password
 				const token = jwt.sign({ id: result[0].id }, process.env.APP_SECRET, { // creates a new token
-					expiresIn: parseInt(process.env.EXPIRES_IN || '1800') // expires in 30 with default
+					expiresIn: parseInt(process.env.EXPIRES_IN) // expires in 30 with default
 				});
 				
 				return response.json({ email, token }); // return token with email 

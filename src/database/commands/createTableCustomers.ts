@@ -22,14 +22,14 @@ export const createTableCustomers = ({ connection, options }: connectionInterfac
             if (err){
 
                 if (err.errno === 1050) {
-                    console.log(`[3/10] 👦 ${err.message}...`);
+                    // console.log(`[3/10] 👦 ${err.message}...`);
                     return resolve({ connection, options });
                 }
                 
                 return reject(err);
             }
 
-            console.log(`[3/10] 👦 created customers table...`);
+            // console.log(`[3/10] 👦 created customers table...`);
             return resolve({ connection, options });
         });
     });

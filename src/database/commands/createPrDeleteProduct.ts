@@ -28,12 +28,13 @@ export const createPrDeleteProduct = ({ connection, options }: connectionInterfa
                 return reject(err);
             }
 
-            console.log(`[10/10] 🚀 created procedure delete_product...`);
+            // console.log(`[10/10] 🚀 created procedure delete_product...`);
             connection.end(err => {
                 if (err)
                     return reject(err);
 
-                console.log(`\n✨  database, tables and procedures successfully created...\n`);
+                console.log(` ✨ Database:    OK`);
+                return resolve();
             });
         });
     });

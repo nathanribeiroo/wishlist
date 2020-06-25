@@ -4,7 +4,7 @@ WORKDIR /var/www
 
 COPY . .
 
-RUN ["sh", "./install.sh"]
+CMD ["yarn", "install", "--production"]
 
 EXPOSE 3000
 

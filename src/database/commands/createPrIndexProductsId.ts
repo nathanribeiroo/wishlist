@@ -33,7 +33,7 @@ export const createPrIndexProductsId = ({ connection, options }: connectionInter
                 return reject(err);
             }
 
-            console.log(`[9/10] 🚀 created procedure index_product_id...`);
+            // console.log(`[9/10] 🚀 created procedure index_product_id...`);
             return resolve({ connection, options });
         });
     });

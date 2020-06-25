@@ -5,18 +5,12 @@
   "author": "Nathan Ribeiro <nathanribeiroo@me.com>",
   "license": "MIT",
   "scripts": {
-    "start": "NODE_ENV=prod node dist/database/index.js && NODE_ENV=prod node dist/index.js",
+    "start": "node dist/index.js",
     "dev": "ts-node-dev --respawn --transpileOnly --ignore-watch node_modules --no-notify src/index.ts",
     "build": "babel src --extensions \".ts\" --out-dir dist --copy-files --no-copy-ignored --no-comments",
-    "db:create:prod": "NODE_ENV=prod node dist/database/index.js",
-    "db:delete:prod": "NODE_ENV=prod DB_DROP=true  node dist/database/index.js",
-    "db:create:test": "NODE_ENV=test ts-node-dev src/database/index.ts",
-    "db:delete:test": "DB_DROP=true NODE_ENV=test ts-node-dev src/database/index.ts",
-    "db:create:dev": "ts-node-dev src/database/index.ts",
-    "db:delete:dev": "DB_DROP=true ts-node-dev src/database/index.ts",
-    "pretest": "DB_DROP=true NODE_ENV=test ts-node-dev src/database/index.ts && NODE_ENV=test ts-node-dev src/database/index.ts",
-    "test": "NODE_ENV=test jest --runInBand authentication.spec.ts customers.spec.ts products.spec.ts routes.spec.ts",
-    "posttest": "DB_DROP=true NODE_ENV=test ts-node-dev src/database/index.ts"
+    "pretest": "ts-node-dev src/__tests__/utils/dropDatabase.ts && ts-node-dev src/__tests__/utils/createDatabase.ts",
+    "test": "jest --runInBand authentication.spec.ts customers.spec.ts products.spec.ts routes.spec.ts",
+    "posttest": "ts-node-dev src/__tests__/utils/dropDatabase.ts"
   },
   "dependencies": {
     "axios": "^0.19.2",

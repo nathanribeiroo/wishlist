@@ -44,7 +44,7 @@ export const createPrAddProducts = ({ connection, options }: connectionInterface
                 return reject(err);
             }
 
-            console.log(`[7/10] 🚀 created procedure add_product...`);
+            // console.log(`[7/10] 🚀 created procedure add_product...`);
             return resolve({ connection, options });
         });
     });
