@@ -419,3 +419,30 @@ Rota para remover um produto da lista de favoritos.
 ```json
 { "error": { "message": "..." } }
 ```
+
+## Testes
+
+Para executar os testes, ela funciona com o mesmo principio ao rodar uma aplicação.
+
+Ele sempre irá criar um banco de dados executar os testes e depois exclui-lo.
+
+Para isso sete no `.env` as seqguintes variáveis:
+```ini
+DB_HOST=localhost
+DB_USER=root # informe o usuário do seu server/docker
+DB_PASS=root # informe a senha do seu server/docker
+APP_ENVIRNMENT=test
+```
+depois:
+
+```sh
+yarn test
+```
+![](https://i.ibb.co/NyQXWrq/Captura-de-Tela-2020-06-25-a-s-06-58-56.png)
+
+
+Acho que é isso!
+
+Qualquer dúvida, é só chamar...
+
+Obrigado 😊
