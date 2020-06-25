@@ -199,12 +199,12 @@ Para isso, informe-o em todas requisições no seguinte local:
 
 #### List 
 
+Rota para *listar* todos os cliente ou *detalhar* algum especifico definindo o `<ID>`
 
 **[GET]** `/customers`
 
 **RESQUEST  NO BODY**
 ```json
-
 ```
 **RESPONSE - STATUS 200**
 ```json
@@ -215,22 +215,18 @@ Para isso, informe-o em todas requisições no seguinte local:
     "email": "...",
     "created_at": "...",
     "updated_at": "..."
-  },
-  ...
+  }
 ]
 ```
-**RESPONSE - STATUS 404**
+**RESPONSE - STATUS 401, 404 ou 500**
 ```json
-{
-  "error": { "message": "user not found." }
-}
+{ "error": { "message": "..." } }
 ```
 
 **[GET]** `/customers/<ID>`
 
 **RESQUEST  NO BODY**
 ```json
-
 ```
 **RESPONSE - STATUS 200**
 ```json
@@ -242,21 +238,184 @@ Para isso, informe-o em todas requisições no seguinte local:
   "updated_at": "2020-06-22T08:39:15.000Z"
 }
 ```
-**RESPONSE - STATUS 404**
+**RESPONSE - STATUS 400, 401, 404 ou 500**
 ```json
-{
-  "error": {
-    "message": "customer not found."
-  }
-}
-```
-ou 
-```json
-{
-  "error": {
-    "status": 400,
-    "message": "id customer invalid."
-  }
-}
+{ "error": { "message": "..." } }
 ```
 
+#### Create Customers
+
+Rota para criar novos Clientes.
+
+**[POST]** `/customers`
+
+
+**RESQUEST BODY**
+```json
+{
+	"name": "José Ribeiro",
+	"email": "email@hotmail.com"
+}
+```
+**RESPONSE - STATUS 200**
+```json
+{
+  "id": "8738eea5-b6c1-11ea-84b7-0242ac1a0002",
+  "name": "José Ribeiro",
+  "email": "email@hotmail.com",
+  "created_at": "2020-06-22T08:54:50.000Z",
+  "updated_at": "2020-06-22T08:54:50.000Z"
+}
+```
+**RESPONSE - STATUS 400, 401 ou 500**
+```json
+{ "error": { "message": "..." } }
+```
+
+#### Update
+
+Rota para atulizar os dados do cliente, nome, email ou os dois Cliente.
+
+**[PUT]** `/customers/<ID>`
+
+
+**RESQUEST BODY**
+```json
+{
+	"name": "José Ribeiro",
+	"email": "jose@hotmail.com"
+}
+```
+**RESPONSE - STATUS 200**
+```json
+{
+  "id": "8738eea5-b6c1-11ea-84b7-0242ac1a0002",
+  "name": "José Ribeiro",
+  "email": "jose@hotmail.com",
+  "created_at": "2020-06-22T08:54:50.000Z",
+  "updated_at": "2020-06-22T08:59:11.000Z"
+}
+```
+**RESPONSE - STATUS 400, 401, 404, 500**
+```json
+{ "error": { "message": "..." } }
+```
+
+#### Delete
+
+Rota para deletar o Cliente.
+
+**[DELETE]** `/customers/<ID>`
+
+**RESQUEST NO BODY**
+```json
+```
+**RESPONSE - STATUS 204 - NO CONTENT**
+```json
+```
+**RESPONSE - STATUS 400, 401, 404, 500**
+```json
+{ "error": { "message": "..." } }
+```
+
+### PRODUCTS
+
+***Todas as próximas*** rotas também será necessário se autenticar com o token criado no passo anterior. 
+
+Para isso, informe-o em todas requisições no seguinte local:
+
+**Authorization: Bearer** `<token>`
+
+
+#### List 
+
+Rota para *listar* todos os produtos favoritos de um cliente ou *detalhar* algum desses produtos.
+
+**[GET]** `/customers/<CUSTOMER_ID>/products`
+
+**RESQUEST NO BODY**
+```json
+```
+**RESPONSE - STATUS 200**
+```json
+[
+  {
+    "title": "Frozen Mug 400 ml Doctor Cooler",
+    "price": 69,
+    "image": "http://challenge-api.luizalabs.com/images/d700bac1-73e3-6c67-7bfe-3f9c7a7c8063.jpg",
+    "link": "http://localhost:3000/customers/d24de9cc-b6c2-11ea-84b7-0242ac1a0002/products/d700bac1-73e3-6c67-7bfe-3f9c7a7c8063"
+  }
+]
+```
+**RESPONSE - STATUS 400, 401, 404 ou 500**
+```json
+{ "error": { "message": "..." } }
+```
+
+**[GET]** `/customers/<CUSTOMER_ID>/products/<PRODUCT_ID>`
+
+**RESQUEST  NO BODY**
+```json
+```
+**RESPONSE - STATUS 200**
+```json
+{
+  "title": "Frozen Mug 400 ml Doctor Cooler",
+  "price": 69,
+  "image": "http://challenge-api.luizalabs.com/images/d700bac1-73e3-6c67-7bfe-3f9c7a7c8063.jpg"
+}
+```
+**RESPONSE - STATUS 400, 401, 404 ou 500**
+```json
+{ "error": { "message": "..." } }
+```
+#### informações
+
+* Se o produto tiver o campo `review`, também é mostrado.
+
+#### Create Products 
+
+Rota para *adicionar* produtos favoritos a um cliente.
+
+**[GET]** `/customers/<CUSTOMER_ID>/products`
+
+**RESQUEST NO BODY**
+```json
+{
+	"productId": "d700bac1-73e3-6c67-7bfe-3f9c7a7c8063"
+}
+```
+**RESPONSE - STATUS 200**
+```json
+{
+  "id": 1,
+  "product_id": "d700bac1-73e3-6c67-7bfe-3f9c7a7c8063",
+  "customer_id": "d24de9cc-b6c2-11ea-84b7-0242ac1a0002",
+  "title": "Frozen Mug 400 ml Doctor Cooler",
+  "price": "69.00",
+  "review": null,
+  "created_at": "2020-06-25T09:08:03.000Z",
+  "updated_at": "2020-06-25T09:08:03.000Z"
+}
+```
+**RESPONSE - STATUS 400, 401, 404 ou 500**
+```json
+{ "error": { "message": "..." } }
+```
+
+#### Delete
+
+Rota para remover um produto da lista de favoritos.
+
+**[DELETE]** `/customers/<CUSTOMER_ID>/products/<PRODUCT_ID>`
+
+**RESQUEST NO BODY**
+```json
+```
+**RESPONSE - STATUS 204 - NO CONTENT**
+```json
+```
+**RESPONSE - STATUS 400, 401, 404, 500**
+```json
+{ "error": { "message": "..." } }
+```
