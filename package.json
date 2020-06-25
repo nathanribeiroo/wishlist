@@ -5,7 +5,7 @@
   "author": "Nathan Ribeiro <nathanribeiroo@me.com>",
   "license": "MIT",
   "scripts": {
-    "start": "NODE_ENV=prod node dist/database/index.js && node dist/index.js",
+    "start": "NODE_ENV=prod node dist/database/index.js && NODE_ENV=prod node dist/index.js",
     "dev": "ts-node-dev --respawn --transpileOnly --ignore-watch node_modules --no-notify src/index.ts",
     "build": "babel src --extensions \".ts\" --out-dir dist --copy-files --no-copy-ignored --no-comments",
     "db:create:prod": "NODE_ENV=prod node dist/database/index.js",
