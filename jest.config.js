@@ -7,6 +7,7 @@ module.exports = {
   modulePathIgnorePatterns: [
     "/src/database/",
     "/src/__tests__/coverage/",
+    "/src/__tests__/utils/",
     "/src/index.ts"
   ],
   preset: 'ts-jest',

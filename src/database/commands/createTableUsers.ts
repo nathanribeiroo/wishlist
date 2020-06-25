@@ -2,10 +2,7 @@ import { connectionInterface } from '../index';
 import md5 from 'md5'
 
 export const createTableUsers = ({ connection, options }: connectionInterface) => {
-    return new Promise<connectionInterface>(async (resolve, reject) => {
-
-        const password1 = await md5('1234');
-        const password2 = await md5('12345');
+    return new Promise<connectionInterface>((resolve, reject) => {
 
         const sqlCreateTable = `
             use ${options.database};
@@ -19,8 +16,8 @@ export const createTableUsers = ({ connection, options }: connectionInterface) =
               
             
 
-            INSERT INTO users (email, password) VALUES ('example@example.com', '${password1}');
-            INSERT INTO users (email, password) VALUES ('test@luizalabs.com', '${password2}');
+            INSERT INTO users (email, password) VALUES ('example@example.com', '${md5('1234')}');
+            INSERT INTO users (email, password) VALUES ('test@luizalabs.com', '${md5('12345')}');
 
             
             `;

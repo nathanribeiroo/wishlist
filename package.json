@@ -9,8 +9,7 @@
     "dev": "ts-node-dev --respawn --transpileOnly --ignore-watch node_modules --no-notify src/index.ts",
     "build": "babel src --extensions \".ts\" --out-dir dist --copy-files --no-copy-ignored --no-comments",
     "pretest": "ts-node-dev src/__tests__/utils/dropDatabase.ts && ts-node-dev src/__tests__/utils/createDatabase.ts",
-    "test": "jest --runInBand authentication.spec.ts customers.spec.ts products.spec.ts routes.spec.ts",
-    "posttest": "ts-node-dev src/__tests__/utils/dropDatabase.ts"
+    "test": "jest --runInBand authentication.spec.ts customers.spec.ts products.spec.ts routes.spec.ts"
   },
   "dependencies": {
     "axios": "^0.19.2",
