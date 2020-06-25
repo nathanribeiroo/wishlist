@@ -11,7 +11,7 @@
 ## Características
 
 * 👨🏻 Visualizar, criar, atualizar e deletar ***Clientes***.
-* 📓 Cada Cliente tem uma ***lista de produtos favoritos*** e pode adicionar, visualizar e remover-los.
+* 📓 Cada Cliente tem uma ***lista de produtos favoritos*** e pode adicionar, visualizar e removê-los.
 * 🔒 Api com autenticação [JWT](https://jwt.io/)
 * 🐬 Banco de dados [MySql 8.0](https://dev.mysql.com/doc/relnotes/mysql/8.0/en/)
 * ✍🏼 Desenvolvido utilizando [Typescript](https://www.typescriptlang.org/)
@@ -30,9 +30,9 @@ Antes de tudo, é necessário ter os seguintes pré requisitos rodando em sua m�
 * [Yarn](https://yarnpkg.com/)
 * [Docker](https://www.docker.com/)
 
-### Clonando o projeto e iniciando o projeto
+### Clonando o projeto e instalando dependências
 
-Com as dependencias instaladas, o próximo passo é abrir o terminal e clonar o projeto. 
+O próximo passo é abrir o terminal, clonar o projeto e instalar as dependências instaladas. 
 
 ```sh
 git clone https://github.com/nathanribeiroo/wishlist.git
@@ -57,13 +57,13 @@ Escolha qual processo deseja seguir:
 
 Antes de iniciar, configure o arquivo `.env` para essa situação vendo [*aqui*](###-Executando-toda-aplicação-no-docker).
 
-O primeiro processo que é necessário é gerar uma build. Para isso, basta executar: 
+O primeiro gere uma build do projeto. Para isso, basta executar: 
 
 ```sh
 yarn build
 ```
 
-Depois de concluído, é preciso criar a imagem da pasta `/dist` e do `Mysql`.
+Depois de concluído, só é preciso criar as imagens da `aplicação` e do `Mysql`. que é sobe o serviço.
 
 ```sh
 docker-compose up --build
@@ -83,24 +83,24 @@ Nessa opção, você vai precisar apenas iniciar o `Mysql` no docker. Para isso 
   docker-compose up db
   ```  
 
-Depois de ter iniciado, é só seguir os passos a seguir.
+Depois de ter iniciado, é só seguir algum dos passos a seguir.
 
 ### Localmente
 
-Depois do `Mysql` já está rodando, você pode executar a api de duas formas. A primeira como ambiente de desenvolvedor e a segunda é como produção.
+Depois do `Mysql` já está rodando (tanto no docker ou local), você pode executar a api de duas formas. A primeira como ambiente de desenvolvedor e a segunda é como produção.
 
-- **Primeira forma** é executar como `dev`. Para isso, configure os padrões do arquivo `.env` para essa situação vendo *aqui* e depois execute.
+- **Primeira forma** é executar como `dev`. Para isso, configure os padrões do arquivo `.env` para essa situação, e depois execute.
   ```sh
   yarn dev
   ```  
-- **Segunda forma** é executar como `prod`. Para isso, configure os padrões do arquivo `.env` para essa situação vendo *aqui* e depois execute.
+- **Segunda forma** é executar como `prod`. Para isso, configure os padrões do arquivo `.env` para essa situação, e depois execute.
   ```sh
   yarn build && yarn start
   ```  
 
 ## Configuração do Arquivo .env
 
-O arquivo `.env` é onde estará as informações de conectividade e de ambiente. É ela que será alterado caso mude a forma de execução do projeto. A seguir está todas as variáveis listadas.
+O arquivo `.env` é onde estará as informações de conectividade, ambiente e seguraça. É ela que será alterado caso mude a forma de execução do projeto. A seguir está todas as variáveis listadas.
 ```ini
 APP_SECRET=xxxx-xxxx-xxx # chave secreta para token jwt
 EXPIRES_IN=3600 # tempo de expiração em segundos
@@ -377,7 +377,7 @@ Rota para *listar* todos os produtos favoritos de um cliente ou *detalhar* algum
 
 Rota para *adicionar* produtos favoritos a um cliente.
 
-**[GET]** `/customers/<CUSTOMER_ID>/products`
+**[POST]** `/customers/<CUSTOMER_ID>/products`
 
 **RESQUEST NO BODY**
 ```json
