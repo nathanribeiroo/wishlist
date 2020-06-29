@@ -45,7 +45,7 @@ const errorQuery = (err: QueryError) => {
  */
 export const joinNameDb = (name?: string) => {
     return name === 'test' ? `${process.env.DB_NAME}_test`
-        : name === 'development' || name === 'dev' ? `${process.env.DB_NAME}_dev` : `${process.env.DB_NAME}`;
+        : name === 'development' || name === 'dev' ? `${process.env.DB_NAME}_dev` : `${process.env.DB_NAME}_prod`;
 }
 
 const dropDb = (database?: string) => {
