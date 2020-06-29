@@ -402,9 +402,6 @@ Rota para *adicionar* produtos favoritos a um cliente.
 ```json
 { "error": { "message": "..." } }
 ```
-#### informações 
-
-A documentação da API para obter os produtos pode ser visualizada ​neste [link](https://gist.github.com/Bgouveia/9e043a3eba439489a35e70d1b5ea08ec)
 
 #### Delete
 
